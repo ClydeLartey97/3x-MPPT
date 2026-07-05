@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 23 / 24 steps completed**
+**OVERALL PROGRESS: 24 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -100,5 +100,5 @@ Lartey. British English is used throughout; em dashes are never used.
 ### Step 23: Confirm git repository and commit history [COMPLETED]
 - Repository already initialised on `main`; confirm state and history.
 
-### Step 24: Final review [NOT STARTED]
+### Step 24: Final review [COMPLETED]
 - Run full simulation, verify all plots generate, verify all tests pass.
