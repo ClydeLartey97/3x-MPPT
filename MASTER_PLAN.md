@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 6 / 24 steps completed**
+**OVERALL PROGRESS: 7 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -48,7 +48,7 @@ Lartey. British English is used throughout; em dashes are never used.
 - Office, warehouse, retail, constant low light, and stress test profiles with noise, step
   changes, and occlusion events.
 
-### Step 7: Validate irradiance profiles, save example plots [NOT STARTED]
+### Step 7: Validate irradiance profiles, save example plots [COMPLETED]
 - Save example plots of each profile to `outputs/validation/profiles/`.
 
 ### Step 8: Implement algorithms/base.py [NOT STARTED]
