@@ -63,6 +63,11 @@ class PerturbAndObserve(MPPTAlgorithm):
             direction = 1.0
 
         next_voltage = self._clamp(voltage + direction * self.step_size)
+        # If a rail blocks the chosen move the voltage cannot change, which would pin the
+        # controller against the rail. Reverse direction so it escapes back towards the peak.
+        if next_voltage == voltage:
+            direction = -direction
+            next_voltage = self._clamp(voltage + direction * self.step_size)
 
         # Store the present operating point as the reference for the next comparison.
         self.prev_power = power
