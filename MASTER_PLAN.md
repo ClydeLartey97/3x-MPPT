@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 21 / 24 steps completed**
+**OVERALL PROGRESS: 22 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -95,7 +95,7 @@ Lartey. British English is used throughout; em dashes are never used.
 
 ### Step 21: Write docs/ALGORITHM.md [COMPLETED]
 
-### Step 22: Create LICENSE (MIT) [NOT STARTED]
+### Step 22: Create LICENSE (MIT) [COMPLETED]
 
 ### Step 23: Confirm git repository and commit history [NOT STARTED]
 - Repository already initialised on `main`; confirm state and history.
