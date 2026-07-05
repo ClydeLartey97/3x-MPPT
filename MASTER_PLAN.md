@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 26 / 28 steps completed**
+**OVERALL PROGRESS: 27 / 28 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -120,7 +120,7 @@ A post-completion review, optimisation, and hardening pass over the finished eng
 - Vectorise generate_iv_curve and find_true_mpp; add a regression test that the explicit
   solution satisfies the implicit diode equation.
 
-### Step 27: Build dashboard results directly from the live run [NOT STARTED]
+### Step 27: Build dashboard results directly from the live run [COMPLETED]
 - The live simulation tab re-ran the entire simulation a second time after the live loop
   finished; construct the SimulationResults from the data already collected instead.
 

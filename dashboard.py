@@ -27,7 +27,7 @@ import cell_model
 import irradiance_profiles as profiles
 from algorithms.ags_mppt import AdaptiveGradientScaledMPPT
 from algorithms.perturb_observe import PerturbAndObserve
-from simulation import SimulationEngine
+from simulation import SimulationEngine, SimulationResults
 from visualisation import COLOUR_AGS, COLOUR_IRRADIANCE, COLOUR_PO, COLOUR_TRUE
 
 st.set_page_config(page_title="3x MPPT Engine", layout="wide")
@@ -144,9 +144,31 @@ def run_live(settings, power_area, cumulative_area, step_area, readout_area, pro
             )
             progress_bar.progress(upto / num_steps)
 
+    # Build the results directly from the data the live loop already collected, rather
+    # than running the whole simulation a second time.
     dt = settings["time_step"]
-    engine = SimulationEngine(cell_model, po, ags)
-    results = engine.run(time_array, irradiance_array, verbose=False)
+    po_eff = np.where(true_power > 1e-12, np.clip(po_power / np.maximum(true_power, 1e-12), 0.0, 1.0), np.nan)
+    ags_eff = np.where(true_power > 1e-12, np.clip(ags_power / np.maximum(true_power, 1e-12), 0.0, 1.0), np.nan)
+    po_energy = float(np.sum(po_power) * dt / 3600.0)
+    ags_energy = float(np.sum(ags_power) * dt / 3600.0)
+    results = SimulationResults(
+        time_seconds=np.asarray(time_array, dtype=float),
+        irradiance=np.asarray(irradiance_array, dtype=float),
+        po_voltage=np.array(po.voltage_history),
+        po_power=po_power,
+        po_efficiency=po_eff,
+        ags_voltage=np.array(ags.voltage_history),
+        ags_power=ags_power,
+        ags_efficiency=ags_eff,
+        ags_step_size=np.array(ags.step_size_history),
+        ags_mode=list(ags.mode_history),
+        true_mpp_power=true_power,
+        po_total_energy_wh=po_energy,
+        ags_total_energy_wh=ags_energy,
+        true_total_energy_wh=float(np.sum(true_power) * dt / 3600.0),
+        improvement_percent=100.0 * (ags_energy - po_energy) / po_energy if po_energy > 1e-12 else 0.0,
+        time_step_seconds=dt,
+    )
     st.session_state["results"] = results
     st.session_state["ran"] = True
 
