@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 5 / 24 steps completed**
+**OVERALL PROGRESS: 6 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -44,7 +44,7 @@ Lartey. British English is used throughout; em dashes are never used.
 - Produce I-V and P-V curves at 1000, 500, 200, 100, 50, 20 W/m2.
 - Save to `outputs/validation/`; confirm peak flattening at low irradiance.
 
-### Step 6: Implement irradiance_profiles.py with all profile generators [NOT STARTED]
+### Step 6: Implement irradiance_profiles.py with all profile generators [COMPLETED]
 - Office, warehouse, retail, constant low light, and stress test profiles with noise, step
   changes, and occlusion events.
 
