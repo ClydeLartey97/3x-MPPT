@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 15 / 24 steps completed**
+**OVERALL PROGRESS: 16 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -81,7 +81,7 @@ Lartey. British English is used throughout; em dashes are never used.
 - Validated improvement across profiles: office +2.6%, warehouse +3.2%, retail +1.0%,
   constant 30 W/m2 +0.1%, stress +0.8%. Bright constant light stays within tolerance of P&O.
 
-### Step 16: Write all unit tests in tests/ [NOT STARTED]
+### Step 16: Write all unit tests in tests/ [COMPLETED]
 - Cell model, algorithms, irradiance, and simulation test suites.
 
 ### Step 17: Run all tests and fix failures [NOT STARTED]
