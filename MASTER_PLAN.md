@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 11 / 24 steps completed**
+**OVERALL PROGRESS: 12 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -65,7 +65,7 @@ Lartey. British English is used throughout; em dashes are never used.
 - SimulationEngine plus SimulationResults dataclass with band, convergence, oscillation
   analysis, CSV export, and text summary.
 
-### Step 12: Implement visualisation.py [NOT STARTED]
+### Step 12: Implement visualisation.py [COMPLETED]
 - All plotting functions at 300 DPI, saved as PNG and SVG, using the defined colour scheme.
 
 ### Step 13: Implement main.py [NOT STARTED]
