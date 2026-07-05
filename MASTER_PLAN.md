@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 10 / 24 steps completed**
+**OVERALL PROGRESS: 11 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -61,7 +61,7 @@ Lartey. British English is used throughout; em dashes are never used.
 - Adaptive Gradient-Scaled MPPT with gradient scaling, irradiance shift detection, and
   oscillation damping.
 
-### Step 11: Implement simulation.py [NOT STARTED]
+### Step 11: Implement simulation.py [COMPLETED]
 - SimulationEngine plus SimulationResults dataclass with band, convergence, oscillation
   analysis, CSV export, and text summary.
 
