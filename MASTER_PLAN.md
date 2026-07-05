@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 13 / 24 steps completed**
+**OVERALL PROGRESS: 14 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -71,7 +71,7 @@ Lartey. British English is used throughout; em dashes are never used.
 ### Step 13: Implement main.py [COMPLETED]
 - CLI with argparse and all documented options, each with a help string.
 
-### Step 14: Run first full simulation and verify outputs [NOT STARTED]
+### Step 14: Run first full simulation and verify outputs [COMPLETED]
 - Office profile, 24h; verify plots and summary generate correctly.
 
 ### Step 15: Tune AGS-MPPT parameters if needed [NOT STARTED]

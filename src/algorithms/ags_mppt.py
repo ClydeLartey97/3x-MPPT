@@ -54,8 +54,12 @@ class AdaptiveGradientScaledMPPT(MPPTAlgorithm):
         damping_factor: Multiplier applied to the step size when oscillation is detected.
         min_step: Absolute minimum step size in volts, preventing the controller stalling.
         max_step: Absolute maximum step size in volts, preventing overshoot in dim light.
-        low_light_threshold: Irradiance in W/m^2 below which the controller holds its
-            operating voltage steady instead of tracking the negligible available peak.
+        low_light_threshold: Irradiance in W/m^2 below which the controller parks at a
+            low, safe operating voltage instead of tracking the negligible available peak.
+        hold_voltage: Voltage in volts to park at during low-light hold. It is low enough to
+            stay below the open-circuit voltage in near darkness, so a little power is still
+            harvested, yet close enough to the daytime peak for a fast recovery when light
+            returns.
         gradient_probe: Voltage offset in volts used to estimate the local gradient.
         initial_voltage: Starting voltage in volts.
         v_min: Minimum voltage in volts.
@@ -78,6 +82,7 @@ class AdaptiveGradientScaledMPPT(MPPTAlgorithm):
         min_step: float = 0.0005,
         max_step: float = 0.02,
         low_light_threshold: float = 8.0,
+        hold_voltage: float = 0.26,
         gradient_probe: float = 0.005,
         reference_irradiance: float = 1000.0,
         initial_voltage: float = 0.4,
@@ -100,6 +105,7 @@ class AdaptiveGradientScaledMPPT(MPPTAlgorithm):
         self.min_step = min_step
         self.max_step = max_step
         self.low_light_threshold = low_light_threshold
+        self.hold_voltage = hold_voltage
         self.gradient_probe = gradient_probe
 
         # Internal tracking state.
@@ -200,12 +206,14 @@ class AdaptiveGradientScaledMPPT(MPPTAlgorithm):
         power = cell_model.cell_power(voltage, irradiance)
 
         # Low-light hold: below the threshold the harvestable power is negligible, so the
-        # available peak is not worth chasing. Holding the operating voltage steady keeps
-        # the controller poised near the last worthwhile operating point, ready to harvest
-        # the instant the light returns rather than having wandered off tracking noise.
+        # available peak is not worth chasing. The controller parks at a low, safe voltage
+        # rather than wandering with the noise. This voltage stays below the open-circuit
+        # voltage even in near darkness, so a little power is still captured, and it sits
+        # close enough to the daytime peak for a fast recovery when the light returns.
         if irradiance < self.low_light_threshold:
             self.prev_power = power
             self.prev_voltage = voltage
+            self.voltage = self._clamp(self.hold_voltage)
             self.voltage_history.append(voltage)
             self.power_history.append(power)
             self.step_size_history.append(0.0)
