@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 16 / 24 steps completed**
+**OVERALL PROGRESS: 17 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -84,7 +84,7 @@ Lartey. British English is used throughout; em dashes are never used.
 ### Step 16: Write all unit tests in tests/ [COMPLETED]
 - Cell model, algorithms, irradiance, and simulation test suites.
 
-### Step 17: Run all tests and fix failures [NOT STARTED]
+### Step 17: Run all tests and fix failures [COMPLETED]
 
 ### Step 18: Implement dashboard.py [NOT STARTED]
 - Streamlit dashboard with all four tabs and dark theme.
