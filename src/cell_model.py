@@ -3,7 +3,9 @@
 This module implements the industry-standard single-diode model of a solar cell and
 provides helper functions to compute current, power, the true maximum power point, and
 full I-V and P-V curves across a wide range of irradiance levels. The governing equation
-is implicit in the current, so it is solved numerically for every operating point.
+is implicit in the current, but it has an exact closed-form solution in terms of the
+Lambert W function, which this module uses. The explicit solution is both faster than an
+iterative root solve and vectorises naturally across arrays of voltages.
 
 All quantities use SI units unless stated otherwise: volts, amps, watts, ohms, kelvin, and
 watts per square metre for irradiance.
@@ -13,6 +15,7 @@ from __future__ import annotations
 
 import numpy as np
 from scipy.optimize import brentq
+from scipy.special import lambertw
 
 # Physical constants.
 BOLTZMANN = 1.381e-23           # Boltzmann constant (J/K).
@@ -57,12 +60,49 @@ def photocurrent(G: float) -> float:
     return I_PH_REF * (G / G_REF)
 
 
+def _cell_current_array(V: np.ndarray, G: float, T: float) -> np.ndarray:
+    """Vectorised current calculation using the explicit Lambert W solution.
+
+    The single-diode equation
+        I = I_ph - I_0 * (exp((V + I*R_s) / (n * V_t)) - 1) - (V + I*R_s) / R_sh
+    is implicit in I, but rearranges exactly to
+        I = (R_sh * (I_ph + I_0) - V) / (R_s + R_sh) - (a / R_s) * W(z)
+    with a = n * V_t and
+        z = (R_s * R_sh * I_0) / (a * (R_s + R_sh))
+            * exp(R_sh * (R_s * (I_ph + I_0) + V) / (a * (R_s + R_sh)))
+    where W is the principal branch of the Lambert W function. This is the standard
+    closed-form solution for the single-diode model.
+
+    Parameters:
+        V: Array of terminal voltages (V).
+        G: Irradiance (W/m^2).
+        T: Cell temperature (K).
+
+    Returns:
+        Array of currents in amps.
+    """
+    if G <= 0.0:
+        return np.zeros_like(V)
+
+    i_ph = photocurrent(G)
+    a = N_IDEALITY * thermal_voltage(T)
+    r_total = R_S + R_SH
+
+    exponent = R_SH * (R_S * (i_ph + I_0) + V) / (a * r_total)
+    # The exponent stays far below this guard for any physical voltage; the clamp only
+    # protects against overflow if a caller probes absurdly large voltages.
+    exponent = np.minimum(exponent, _MAX_EXP_ARGUMENT)
+    z = (R_S * R_SH * I_0) / (a * r_total) * np.exp(exponent)
+
+    current = (R_SH * (i_ph + I_0) - V) / r_total - (a / R_S) * lambertw(z).real
+    return current
+
+
 def cell_current(V: float, G: float, T: float = T_REF) -> float:
     """Calculate the output current of the solar cell at a given voltage and irradiance.
 
-    The single-diode equation is implicit in the current, so it is solved numerically
-    with a bracketed root finder. The exponential argument is clamped to avoid overflow
-    at large voltages.
+    The implicit single-diode equation is evaluated through its exact Lambert W
+    closed-form solution, so no iterative root finding is needed.
 
     Parameters:
         V: Terminal voltage (V).
@@ -72,28 +112,7 @@ def cell_current(V: float, G: float, T: float = T_REF) -> float:
     Returns:
         Current in amps.
     """
-    if G <= 0.0:
-        return 0.0
-
-    i_ph = photocurrent(G)
-    v_t = thermal_voltage(T)
-    denom = N_IDEALITY * v_t
-
-    def residual(current: float) -> float:
-        exponent = (V + current * R_S) / denom
-        exponent = min(exponent, _MAX_EXP_ARGUMENT)
-        diode = I_0 * (np.exp(exponent) - 1.0)
-        shunt = (V + current * R_S) / R_SH
-        return i_ph - diode - shunt - current
-
-    # The residual is monotonically decreasing in current, so a sign change is guaranteed
-    # between a comfortably negative lower bound and the photocurrent upper bound.
-    lower = -(i_ph + 1.0)
-    upper = i_ph + 1e-9
-    if residual(lower) < 0.0 or residual(upper) > 0.0:
-        # Widen the bracket defensively; this should rarely be needed.
-        lower = -(i_ph + 100.0)
-    return float(brentq(residual, lower, upper, xtol=1e-12, rtol=1e-10))
+    return float(_cell_current_array(np.asarray(V, dtype=float), G, T))
 
 
 def cell_power(V: float, G: float, T: float = T_REF) -> float:
@@ -129,8 +148,9 @@ def open_circuit_voltage(G: float, T: float = T_REF) -> float:
 def find_true_mpp(G: float, T: float = T_REF) -> tuple[float, float, float]:
     """Find the true maximum power point for a given irradiance.
 
-    The voltage is swept from zero to the open-circuit voltage and the point of greatest
-    power is selected. A short local refinement sweep sharpens the estimate.
+    The voltage is swept from zero to the open-circuit voltage in a single vectorised
+    pass and the point of greatest power is selected, followed by a local refinement
+    sweep around the coarse peak.
 
     Parameters:
         G: Irradiance (W/m^2).
@@ -147,14 +167,14 @@ def find_true_mpp(G: float, T: float = T_REF) -> tuple[float, float, float]:
         return 0.0, 0.0, 0.0
 
     voltages = np.linspace(0.0, v_oc, 400)
-    powers = np.array([cell_power(v, G, T) for v in voltages])
+    powers = voltages * _cell_current_array(voltages, G, T)
     coarse_index = int(np.argmax(powers))
 
     # Refine locally around the coarse peak for a tighter estimate.
     low = voltages[max(coarse_index - 1, 0)]
     high = voltages[min(coarse_index + 1, len(voltages) - 1)]
     fine_voltages = np.linspace(low, high, 100)
-    fine_powers = np.array([cell_power(v, G, T) for v in fine_voltages])
+    fine_powers = fine_voltages * _cell_current_array(fine_voltages, G, T)
     fine_index = int(np.argmax(fine_powers))
 
     v_mpp = float(fine_voltages[fine_index])
@@ -182,6 +202,6 @@ def generate_iv_curve(
 
     v_oc = open_circuit_voltage(G, T)
     voltages = np.linspace(0.0, v_oc, num_points)
-    currents = np.array([cell_current(v, G, T) for v in voltages])
+    currents = _cell_current_array(voltages, G, T)
     powers = voltages * currents
     return voltages, currents, powers

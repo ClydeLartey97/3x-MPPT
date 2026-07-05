@@ -1,5 +1,7 @@
 """Unit tests for the single-diode solar cell model."""
 
+import numpy as np
+
 import cell_model
 from cell_model import (
     I_PH_REF,
@@ -8,6 +10,7 @@ from cell_model import (
     find_true_mpp,
     open_circuit_voltage,
     photocurrent,
+    thermal_voltage,
 )
 
 
@@ -55,3 +58,18 @@ def test_zero_irradiance_gives_zero_power():
         assert abs(cell_power(V, 0.0)) < 1e-9
     assert I_PH_REF > 0.0  # sanity check that the reference constant is present
     assert cell_model.find_true_mpp(0.0) == (0.0, 0.0, 0.0)
+
+
+def test_explicit_solution_satisfies_diode_equation():
+    """The Lambert W solution must satisfy the implicit single-diode equation exactly."""
+    a = cell_model.N_IDEALITY * thermal_voltage()
+    for G in (1000.0, 200.0, 50.0, 20.0, 5.0):
+        for V in np.linspace(0.0, 0.72, 13):
+            I = cell_current(V, G)
+            residual = (
+                photocurrent(G)
+                - cell_model.I_0 * (np.exp((V + I * cell_model.R_S) / a) - 1.0)
+                - (V + I * cell_model.R_S) / cell_model.R_SH
+                - I
+            )
+            assert abs(residual) < 1e-12

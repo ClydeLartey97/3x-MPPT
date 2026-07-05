@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 25 / 28 steps completed**
+**OVERALL PROGRESS: 26 / 28 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -114,7 +114,7 @@ A post-completion review, optimisation, and hardening pass over the finished eng
   CLI's --live-plot window; restore an interactive backend before showing.
 - Keep a reference to the FuncAnimation so the garbage collector cannot stop playback.
 
-### Step 26: Optimise the cell model with the explicit Lambert W solution [NOT STARTED]
+### Step 26: Optimise the cell model with the explicit Lambert W solution [COMPLETED]
 - Replace the per-point implicit root solve with the closed-form single-diode solution via
   scipy.special.lambertw, which is exact and vectorises across voltage arrays.
 - Vectorise generate_iv_curve and find_true_mpp; add a regression test that the explicit
