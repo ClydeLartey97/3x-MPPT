@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 19 / 24 steps completed**
+**OVERALL PROGRESS: 20 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -91,7 +91,7 @@ Lartey. British English is used throughout; em dashes are never used.
 
 ### Step 19: Test the Streamlit dashboard runs correctly [COMPLETED]
 
-### Step 20: Write README.md [NOT STARTED]
+### Step 20: Write README.md [COMPLETED]
 
 ### Step 21: Write docs/ALGORITHM.md [NOT STARTED]
 
