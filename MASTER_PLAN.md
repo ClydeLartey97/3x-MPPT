@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 27 / 28 steps completed**
+**OVERALL PROGRESS: 28 / 28 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -124,6 +124,6 @@ A post-completion review, optimisation, and hardening pass over the finished eng
 - The live simulation tab re-ran the entire simulation a second time after the live loop
   finished; construct the SimulationResults from the data already collected instead.
 
-### Step 28: Re-verify everything after optimisation [NOT STARTED]
+### Step 28: Re-verify everything after optimisation [COMPLETED]
 - Run the full test suite, the 24 hour office simulation, and the all-profiles comparison;
   confirm the results are unchanged and refresh the README table if any figure moves.
