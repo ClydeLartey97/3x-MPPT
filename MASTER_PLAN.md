@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 28 / 28 steps completed**
+**OVERALL PROGRESS: 29 / 29 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -127,3 +127,9 @@ A post-completion review, optimisation, and hardening pass over the finished eng
 ### Step 28: Re-verify everything after optimisation [COMPLETED]
 - Run the full test suite, the 24 hour office simulation, and the all-profiles comparison;
   confirm the results are unchanged and refresh the README table if any figure moves.
+
+### Step 29: Add one-button VS Code run configurations [COMPLETED]
+- Add .vscode/launch.json so pressing F5 starts the Streamlit dashboard and opens it in the
+  browser automatically; include CLI configurations for the office run and all profiles.
+- Add .vscode/settings.json pointing the interpreter at the project venv and enabling pytest.
+- Stop ignoring .vscode in .gitignore so the configurations ship with the repository.

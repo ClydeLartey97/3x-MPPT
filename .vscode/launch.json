@@ -1,0 +1,46 @@
+{
+    // Press F5 (or Run > Start Debugging) to launch. Pick a configuration from the
+    // dropdown in the Run and Debug panel. The dashboard configuration starts the
+    // Streamlit server and opens the dashboard in your default browser automatically.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "3x MPPT Dashboard",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "dashboard.py",
+                "--server.headless=false"
+            ],
+            "console": "integratedTerminal",
+            "python": "${workspaceFolder}/venv/bin/python",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "3x MPPT CLI: office 24h",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "python": "${workspaceFolder}/venv/bin/python",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        },
+        {
+            "name": "3x MPPT CLI: all profiles",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "args": [
+                "--all-profiles"
+            ],
+            "console": "integratedTerminal",
+            "python": "${workspaceFolder}/venv/bin/python",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        }
+    ]
+}

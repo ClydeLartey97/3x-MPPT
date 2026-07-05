@@ -22,7 +22,6 @@ htmlcov/
 # Generated outputs (plots and data are produced, not stored in git)
 outputs/
 
-# Editor and OS files
-.vscode/
+# Editor and OS files (.vscode is kept in git so the one-button run configs ship with the project)
 .idea/
 .DS_Store
