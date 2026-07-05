@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 2 / 24 steps completed**
+**OVERALL PROGRESS: 3 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -32,7 +32,7 @@ Lartey. British English is used throughout; em dashes are never used.
 - Pin numpy, scipy, matplotlib, pandas, streamlit, pytest to the minimum versions given.
 - Install into `venv/`.
 
-### Step 3: Create .gitignore [NOT STARTED]
+### Step 3: Create .gitignore [COMPLETED]
 - Standard Python entries plus `outputs/` and `venv/`.
 
 ### Step 4: Implement cell_model.py with all functions [NOT STARTED]

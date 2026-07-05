@@ -1,0 +1,28 @@
+# Byte-compiled / optimised / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Generated outputs (plots and data are produced, not stored in git)
+outputs/
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
