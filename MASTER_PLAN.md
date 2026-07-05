@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 14 / 24 steps completed**
+**OVERALL PROGRESS: 15 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -74,8 +74,12 @@ Lartey. British English is used throughout; em dashes are never used.
 ### Step 14: Run first full simulation and verify outputs [COMPLETED]
 - Office profile, 24h; verify plots and summary generate correctly.
 
-### Step 15: Tune AGS-MPPT parameters if needed [NOT STARTED]
+### Step 15: Tune AGS-MPPT parameters if needed [COMPLETED]
 - Ensure AGS demonstrably outperforms P&O in low light.
+- Tuned defaults: base_step 0.008, max_multiplier 3.0, max_step 0.02, gradient thresholds
+  0.10 and 0.01 on an irradiance-normalised gradient, low-light park at 0.26 V below 8 W/m2.
+- Validated improvement across profiles: office +2.6%, warehouse +3.2%, retail +1.0%,
+  constant 30 W/m2 +0.1%, stress +0.8%. Bright constant light stays within tolerance of P&O.
 
 ### Step 16: Write all unit tests in tests/ [NOT STARTED]
 - Cell model, algorithms, irradiance, and simulation test suites.
