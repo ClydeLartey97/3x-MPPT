@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 0 / 24 steps completed**
+**OVERALL PROGRESS: 1 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -23,7 +23,7 @@ Lartey. British English is used throughout; em dashes are never used.
 
 ## Steps
 
-### Step 1: Create project directory structure [NOT STARTED]
+### Step 1: Create project directory structure [COMPLETED]
 - Create `src/`, `src/algorithms/`, `tests/`, `outputs/validation/profiles/`, `outputs/plots/`,
   `outputs/data/`, `docs/`.
 - Add empty `__init__.py` files to `src/`, `src/algorithms/`, `tests/`.
