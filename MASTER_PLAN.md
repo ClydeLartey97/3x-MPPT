@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 7 / 24 steps completed**
+**OVERALL PROGRESS: 8 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -51,7 +51,7 @@ Lartey. British English is used throughout; em dashes are never used.
 ### Step 7: Validate irradiance profiles, save example plots [COMPLETED]
 - Save example plots of each profile to `outputs/validation/profiles/`.
 
-### Step 8: Implement algorithms/base.py [NOT STARTED]
+### Step 8: Implement algorithms/base.py [COMPLETED]
 - Abstract base class defining the common MPPT interface and logging attributes.
 
 ### Step 9: Implement algorithms/perturb_observe.py [NOT STARTED]
