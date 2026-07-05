@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 4 / 24 steps completed**
+**OVERALL PROGRESS: 5 / 24 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -40,7 +40,7 @@ Lartey. British English is used throughout; em dashes are never used.
   `generate_iv_curve`, plus an open-circuit voltage helper.
 - Solve the implicit current equation numerically with `scipy.optimize.brentq`.
 
-### Step 5: Validate cell model, generate I-V curves, save plots [NOT STARTED]
+### Step 5: Validate cell model, generate I-V curves, save plots [COMPLETED]
 - Produce I-V and P-V curves at 1000, 500, 200, 100, 50, 20 W/m2.
 - Save to `outputs/validation/`; confirm peak flattening at low irradiance.
 
