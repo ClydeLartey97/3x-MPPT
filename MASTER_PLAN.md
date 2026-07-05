@@ -2,7 +2,7 @@
 
 > ANY AGENT CONTINUING THIS WORK MUST READ THIS ENTIRE DOCUMENT BEFORE DOING ANYTHING AND MUST FOLLOW THE PLAN EXACTLY, UPDATING STATUS AFTER EACH STEP
 
-**OVERALL PROGRESS: 24 / 24 steps completed**
+**OVERALL PROGRESS: 25 / 28 steps completed**
 
 This document is the single source of truth for the build. Every step below carries a status
 indicator: `[NOT STARTED]`, `[IN PROGRESS]`, `[COMPLETED]`, or `[FAILED - reason]`. The status is
@@ -102,3 +102,28 @@ Lartey. British English is used throughout; em dashes are never used.
 
 ### Step 24: Final review [COMPLETED]
 - Run full simulation, verify all plots generate, verify all tests pass.
+
+---
+
+## Optimisation Pass
+
+A post-completion review, optimisation, and hardening pass over the finished engine.
+
+### Step 25: Fix live plot backend and animation lifetime [COMPLETED]
+- The visualisation module selects the Agg backend at import, which silently blanked the
+  CLI's --live-plot window; restore an interactive backend before showing.
+- Keep a reference to the FuncAnimation so the garbage collector cannot stop playback.
+
+### Step 26: Optimise the cell model with the explicit Lambert W solution [NOT STARTED]
+- Replace the per-point implicit root solve with the closed-form single-diode solution via
+  scipy.special.lambertw, which is exact and vectorises across voltage arrays.
+- Vectorise generate_iv_curve and find_true_mpp; add a regression test that the explicit
+  solution satisfies the implicit diode equation.
+
+### Step 27: Build dashboard results directly from the live run [NOT STARTED]
+- The live simulation tab re-ran the entire simulation a second time after the live loop
+  finished; construct the SimulationResults from the data already collected instead.
+
+### Step 28: Re-verify everything after optimisation [NOT STARTED]
+- Run the full test suite, the 24 hour office simulation, and the all-profiles comparison;
+  confirm the results are unchanged and refresh the README table if any figure moves.

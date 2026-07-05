@@ -57,6 +57,20 @@ def make_engine() -> SimulationEngine:
 
 def run_live_plot(results) -> None:
     """Show a simple live animation of the extracted power building up over time."""
+    import matplotlib
+
+    # The visualisation module selects the non-interactive Agg backend for saving files, so
+    # an interactive backend must be restored here or the window would never appear.
+    for backend in ("MacOSX", "TkAgg", "QtAgg"):
+        try:
+            matplotlib.use(backend, force=True)
+            break
+        except ImportError:
+            continue
+    else:
+        print("No interactive matplotlib backend is available; skipping the live plot.")
+        return
+
     import matplotlib.pyplot as plt
     from matplotlib.animation import FuncAnimation
 
@@ -81,8 +95,11 @@ def run_live_plot(results) -> None:
         ags_line.set_data(hours[:frame], ags[:frame])
         return po_line, ags_line
 
-    FuncAnimation(fig, update, frames=len(hours), interval=20, blit=True, repeat=False)
+    # The animation object must be kept alive until the window closes, otherwise the
+    # garbage collector stops the playback partway through.
+    animation = FuncAnimation(fig, update, frames=len(hours), interval=20, blit=True, repeat=False)
     plt.show()
+    del animation
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
